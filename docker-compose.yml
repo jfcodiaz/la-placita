@@ -8,5 +8,3 @@ services:
       - ${WEB_PORT}:80
     volumes:
       - ./code:/var/www/html:ro
-  
-    
