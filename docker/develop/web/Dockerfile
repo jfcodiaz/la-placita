@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install zip
 
-WORKDIR "/var/www"
+WORKDIR "/var/www/app"
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
