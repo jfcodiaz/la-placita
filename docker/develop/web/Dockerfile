@@ -40,7 +40,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN mkdir /root/.nvm
 ENV NVM_DIR /root/.nvm
-ENV NODE_VERSION v12.22.10
+ENV NODE_VERSION v14.18.0
 ENV npm_config_user=root
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.9/install.sh | bash
