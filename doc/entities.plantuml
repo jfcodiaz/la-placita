@@ -9,16 +9,86 @@ class User {
   + string $email_verified_at
   + string $password
   + string $remember_token
+  + Address $addresses
   + DateTime $created_at
   + DateTime $updated_at
+  + addresses(): HasMany<Address>
 }
 
 class Company {
     + int $id
+    + int $type_id
     + string $name
-    + User $owner
+    + Collection<Branch> $branches
     + DateTime $created_at
     + DateTime $updated_at
+    + branches(): hasMany<Branch>
+    + type(): belongTo<CompanyType>
+}
+
+class Plate {
+    + int $id
+    + string $name
+}
+
+class Menu {
+    + int $id
+    + Collection<MenuItem> $items
+}
+
+class MenuItem {
+    + int $id
+    + Plate $plate
+    + decimal $price
+}
+
+class PlateType {
+    + int $id
+    + string $code
+    + string $name
+}
+
+class Order {
+    + int $id
+    + Branch $branch
+    + User $user
+    + Address $address
+    + OrderItem $items 
+    + string $observation 
+}
+
+class OrderItem {
+    + int $id
+    + int $plate
+    + string $observations
+    + int count
+    + decimal $price
+}
+
+class Collaborator {
+    + int user_id
+    + int company_id
+    + int collaborator_type_id
+    + CollaboratorType: $type
+    + Company: $company
+    + User:$user
+    + user(): belongTo
+    + company(): belongTo
+    + type(): CollaboratorType
+}
+
+class CollaboratorType {
+    + int id
+    + int string code
+    + int string name
+    + collaborators():hasMany<User>
+}
+class CompanyType {
+    + int id
+    + int string code
+    + string name
+    + Collection<Company> companies
+    companies(): hasMany<Company>
 }
 
 class Branch {
@@ -31,45 +101,89 @@ class Branch {
 
 class Address {
     + int $id
-    + string $name
+    + int $country_id
     + Country $country
+    + int $state_id
     + State $state
-    + City $city
+    + int $city_id
+    + City $city 
     + string $street
     + string $number
     + string $indoor_number
+    + string $lat
+    + string $lon
     + DateTime $created_at
     + DateTime $updated_at
+    
+    + country(): belongTo<Country>
+    + state(): belongTo<State>
+    + city(): belongTo<City>
 }
 
 class Country {
     + int $id
     + string $name
+    + Collection<States> $states
     + DateTime $created_at
     + DateTime $updated_at
+    
+    + states(): hasMany<States>
 }
 
 class State {
     + int $id
+    + int $country_id 
     + string $name
+    + Country $country
     + DateTime $created_at
     + DateTime $updated_at
+
+    + country(): BelongTo<City>
 }
 
 class City {
     + int $id
     + string $name
+    + Collection<Neighborhood> $neighborhoods
     + DateTime $created_at;
     + DateTime $updated_at;
+    
+    + state(): BelongTo<State>
+    + neighborhoods(): HasMany<Neighborhood>
 }
 
 class Neighborhood {
     + int $id
+    + int $city_id
+    + City $city
     + string $name
     + DateTime $created_at;
     + DateTime $updated_at;
+    + city(): belongTo<City>
 }
 
+Company "1 " -- "1..* " Branch
+Company "1..* " -- "1" CompanyType
+Company "1..* " --> "1" Collaborator
+Collaborator "1" -- "1" User
+Collaborator "0..* " -- "1" CollaboratorType
+Neighborhood "0..* " -- "1 " City
+Country "0..*" -- "1 " City
+City "0..* " -- "1 " State
+Address "0..*" -- "1 " City
+Address "0..*" -- "1 " Neighborhood
+Address "0..*" -- "1 " State
+Address "0..*" -- "1 " Country
+Branch "1" --- "1" Address
+User "1" --- "0..1" Address
 
-Neighborhood o--> City
+Branch "1" -- "1" Menu
+Menu "1"-- "0..*" MenuItem
+MenuItem -- Plate
+Plate "0..*" -- "1" PlateType
+User "1" -- "0..*" Order
+Order "1" --  "*.." OrderItem
+OrderItem "1" -- "1" Plate
+Order -- Branch
+Order -- Address
 @enduml
