@@ -17,8 +17,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('users', function($table)
-        {
+        Schema::table('users', function ($table) {
             $table->renameColumn('firstname', 'name');
             $table->dropColumn(['lastname', 'username']);
         });
