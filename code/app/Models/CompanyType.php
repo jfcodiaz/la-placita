@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $type_id
+ * @property string $code
  * @property string $name
- * @property Collection $branches
+ * @property Collection $companies
  * @property DateTime $created_at
  * @property DateTime $updated_at
  */
-class Company extends Model
+class CompanyType extends Model
 {
     use HasFactory;
-
-    public function company_type()
+    
+    public function companies()
     {
-        return $this->belongsTo(CompanyType::class);
+        return $this->hasMany(Company::class);
     }
 
 }
