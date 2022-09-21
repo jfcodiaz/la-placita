@@ -56,4 +56,4 @@ jobs:
           php -r "file_exists('.env') || copy('.env.example', '.env');"
           composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           php artisan key:generate
-          vendor/bin/phpunit --verbose
+          vendor/bin/phpunit --verbose --testdox
