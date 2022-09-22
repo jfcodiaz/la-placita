@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
             DefaultUserSeeder::class,
             CitySeeder::class,
             NeighborhoodSeeder::class,
+            CompanyTypeSeeder::class,
+            CompanySeeder::class,
         ]);
     }
 }

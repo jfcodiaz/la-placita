@@ -17,9 +17,8 @@ class Company extends Model
 {
     use HasFactory;
 
-    public function company_type()
+    public function companyType()
     {
         return $this->belongsTo(CompanyType::class);
     }
-
 }
