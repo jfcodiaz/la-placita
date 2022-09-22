@@ -11,8 +11,6 @@ class CompanyFactory extends Factory
     {
         return [
            'name' => fake()->company(),
-           'created_at' => new DateTime(),
-           'updated_at' => null
         ];
     }
 }
