@@ -7,27 +7,20 @@ use Spatie\Permission\Models\Role;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         $role1 = Role::create(['name' => 'clientUser']);
         $role2 = Role::create(['name' => 'ownerUser']);
         $role3 = Role::create(['name' => 'employeeUser']);
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        $role1 = Role::findByName('clientUser'); $role1->delete();
-        $role2 = Role::findByName('ownerUser'); $role2->delete();
-        $role3 = Role::findByName('employeeUser'); $role3->delete();
+        $role1 = Role::findByName('clientUser');
+        $role1->delete();
+        $role2 = Role::findByName('ownerUser');
+        $role2->delete();
+        $role3 = Role::findByName('employeeUser');
+        $role3->delete();
     }
 };
