@@ -16,10 +16,13 @@ services:
     ports:
       - ${MYSQL_PORT}:3306
     environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./docker/develop/mysql/init/:/docker-entrypoint-initdb.d/
     container_name: ${PROJECT_NAME}_mysql
   
   phpmyadmin:
