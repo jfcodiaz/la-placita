@@ -2,19 +2,31 @@ name: develop pipeline
 
 on:
   push:
+    branches: ["main", "develop", "staging"]
     paths-ignore:
       - "*.md"
   pull_request:
+    branches: ['*']
     paths-ignore:
       - "*.md"
-    branches:
-      - features/*
 
 jobs:
   develop:
     runs-on: ubuntu-20.04
     name: Test - PHP 8.1
     steps:
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0'
+          mysql database: 'la_placita_test'
+          mysql user: 'laravel'
+          mysql password: root
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --silent; do
+            sleep 0.2
+          done
       - name: Checkout code
         uses: actions/checkout@v3
         with:
