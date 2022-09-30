@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property string $name
  * @property int $zip_code
+ * @property City $city
  * @property DateTime $created_at
  * @property DateTime $updated_at
  */
