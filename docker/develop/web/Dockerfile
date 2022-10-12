@@ -57,7 +57,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install zip
 
-WORKDIR "/var/www/app"
+RUN apt-get update && apt-get install openssh-client -y
+
+WORKDIR "/root/app"
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
