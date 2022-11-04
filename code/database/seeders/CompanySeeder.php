@@ -13,7 +13,7 @@ class CompanySeeder extends Seeder
     {
         CompanyType::all()->each(function (CompanyType $CompanyType): void {
             Company::factory(5)->create([
-                'type_id' => $CompanyType->id
+                'company_type_id' => $CompanyType->id
             ]);
         });
     }
