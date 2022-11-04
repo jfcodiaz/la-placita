@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
             NeighborhoodSeeder::class,
             CompanyTypeSeeder::class,
             CompanySeeder::class,
+            CountrySeeder::class,
+            StateSeeder::class,
+            PlateTypeSeeder::class,
+            PlateSeeder::class,
+            AddressSeeder::class
         ]);
     }
 }
