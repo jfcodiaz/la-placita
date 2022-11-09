@@ -50,10 +50,15 @@ jobs:
           php /usr/local/bin/phpcs --version
           cd code
           php /usr/local/bin/phpcs
+      - uses: actions/setup-node@v3
+        with:
+          node-version: v14.18.0
       - name: Setup and test
         run: | 
           cd code
           php -r "file_exists('.env') || copy('.env.example', '.env');"
+          npm install
+          npm run build
           composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           php artisan key:generate
           vendor/bin/phpunit --verbose --testdox
