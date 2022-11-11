@@ -11,7 +11,7 @@ class CompanyTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_example(): void
+    public function test_save(): void
     {
         /** @var companyType $companyType */
         $companyType = companyType::factory()->create();
