@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CollaboratorType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +19,9 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             PlateTypeSeeder::class,
             PlateSeeder::class,
-            AddressSeeder::class
+            AddressSeeder::class,
+            CollaboratorTypeSeeder::class,
+            CollaboratorSeeder::class,
         ]);
     }
 }
