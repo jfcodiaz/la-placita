@@ -17,6 +17,11 @@ class CompanyType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'code'
+    ];
+
     public function companies()
     {
         return $this->hasMany(Company::class);

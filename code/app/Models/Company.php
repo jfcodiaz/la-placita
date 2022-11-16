@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $type_id
+ * @property int $company_type_id
  * @property string $name
  * @property Collection $branches
  * @property DateTime $created_at
@@ -17,13 +17,13 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'company_type_id'
+    ];
+
     public function companyType()
     {
         return $this->belongsTo(CompanyType::class);
-    }
-
-    public function collaborator()
-    {
-        return $this->belongsTo(Collaborator::class);
     }
 }
