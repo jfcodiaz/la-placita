@@ -17,6 +17,9 @@ class Company extends Model
 {
     use HasFactory;
 
+    const TYPE_RESTAURANT = 1;
+    const TYPE_COMMERCE = 2;
+
     public function companyType()
     {
         return $this->belongsTo(CompanyType::class);
@@ -25,5 +28,10 @@ class Company extends Model
     public function collaborator()
     {
         return $this->belongsTo(Collaborator::class);
+    }
+
+    public function parent()
+    {
+        return $this->morphOne(PlateType::class, 'parent');
     }
 }

@@ -24,4 +24,9 @@ class PlateType extends Model
     {
         return $this->hasMany(Plate::class);
     }
+
+    public function parent()
+    {
+        return $this->morphTo();
+    }
 }
