@@ -61,4 +61,6 @@ jobs:
           npm run build
           composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           php artisan key:generate
+          php artisan migrate
+          php artisan migrate:rollback
           vendor/bin/phpunit --verbose --testdox
