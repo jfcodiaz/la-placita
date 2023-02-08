@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class PlateTypeControllerTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     public function test_user_should_create_platetype(): void
     {

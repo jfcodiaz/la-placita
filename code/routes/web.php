@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::post('/plate-type', [PlateTypeController::class, 'store'])->name('plate-type.store');
+Route::post('/plate-types', [PlateTypeController::class, 'store'])->name('plate-types.store');
+
+Route::get('/plate-types', [PlateTypeController::class, 'index'])->name('plate-types.index');
 
 require __DIR__ . '/auth.php';
