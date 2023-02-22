@@ -22,7 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
-Route::get('/company/create', [CompanyController::class, 'create']);
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
+Route::get('/companies/create', [CompanyController::class, 'create']);
 
 require __DIR__ . '/auth.php';

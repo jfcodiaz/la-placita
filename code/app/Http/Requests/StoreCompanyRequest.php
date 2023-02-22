@@ -24,7 +24,7 @@ class StoreCompanyRequest extends FormRequest
                 'integer',
                 'exists:App\Models\CompanyType,id'
             ]
-        
+
         ];
     }
 }

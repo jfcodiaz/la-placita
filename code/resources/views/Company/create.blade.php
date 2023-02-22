@@ -1,6 +1,6 @@
 <h1>Nuevo negocio</h1>
 
-<form action="{{route('company.store')}}" method="POST">
+<form action="{{route('companies.store')}}" method="POST">
 Name <input type="text" value="{{ old('name') }}" name="name"><br>
 Type
 <select name="company_type_id" >
