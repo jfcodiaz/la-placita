@@ -19,7 +19,7 @@ class CollaboratorType extends Model
 
     public $fillable = ['code', 'name', 'company_type_id'];
 
-    public function company_type()
+    public function companyType()
     {
         return $this->belongsTo(CompanyType::class);
     }

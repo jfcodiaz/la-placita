@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompanyRequest;
-use App\Models\Company;
 use App\Models\CompanyType;
+use App\Services\Companies\CreateCompanyService;
 
 class CompanyController extends Controller
 {
@@ -13,12 +13,14 @@ class CompanyController extends Controller
         return view('company.index');
     }
 
-    public function store(StoreCompanyRequest $request)
+    public function store(StoreCompanyRequest $request, CreateCompanyService $createCompany)
     {
-        $company = Company::create([
-          'name' => $request->post('name'),
-          'company_type_id' => $request->post('company_type_id')
-        ]);
+        $user = auth()->user();
+        $createCompany(
+            $request->post('name'),
+            $request->post('company_type_id'),
+            $user
+        );
         $urlIndex = route('companies.index');
 
         return redirect($urlIndex);

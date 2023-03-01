@@ -18,12 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function () {
 
-Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
-Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
-Route::get('/companies/create', [CompanyController::class, 'create']);
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/companies/create', [CompanyController::class, 'create']);
+
+    Route::get('/companies', [CompanyController::class, 'index'])
+    ->name('companies.index');
+
+    Route::post('/companies', [CompanyController::class, 'store'])
+    ->name('companies.store');
+});
+
 
 require __DIR__ . '/auth.php';

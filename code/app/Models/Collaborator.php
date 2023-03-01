@@ -17,6 +17,10 @@ class Collaborator extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'user_id', 'company_id', 'collaborator_type_id'
+    ];
+
     public function collaboratorType()
     {
         return $this->belongsTo(CollaboratorType::class);
