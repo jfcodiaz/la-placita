@@ -7,6 +7,9 @@ use App\Models\CollaboratorType;
 use App\Models\Company;
 use App\Models\CompanyType;
 use App\Models\User;
+use App\Repositories\CompanyTypeRepository;
+use App\Repositories\UserRepository;
+use App\Services\Companies\CreateCompanyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -63,11 +66,27 @@ class CompanyControllerTest extends TestCase
     public function test_index_should_show_companies_for_logged_user()
     {
         $this->markTestSkipped();
-        $user = User::factory()->create();
-        $firstCompanyType = CompanyType::all()->first();
+        $companyTypeId = $this->app->get(CompanyTypeRepository::class)
+            ->getRestaurantType()
+            ->id;
+        
+        $user = $this->app->get(UserRepository::class)->createOneByFactory();
 
-        $companies = Company::factory(3)->create([
-        'company_type_id' => $firstCompanyType
-        ]);
+        $companies2 = $this->createCompany('company 1', $companyTypeId, $user);
+        $companies2 = $this->createCompany('company 2', $companyTypeId, $user);
+        $companies3 = $this->createCompany('company 3', $companyTypeId, $user);
+
+        $urlIndex = route('companies.index');
+        $response = $this->actingAs($user)->get($urlIndex);
+    }
+
+    private function createCompany(string $name, int $companyTypeId, User $user)
+    {
+
+        $companies1 = $this->app->get(CreateCompanyService::class)(
+            $name, 
+            $companyTypeId, 
+            $user
+        );
     }
 }
