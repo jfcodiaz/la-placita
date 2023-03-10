@@ -26,4 +26,9 @@ class Company extends Model
     {
         return $this->belongsTo(CompanyType::class);
     }
+
+    public function collaborators()
+    {
+        return $this->hasMany(Collaborator::class);
+    }
 }

@@ -5,7 +5,6 @@ namespace Tests\Feature\Controllers;
 use App\Models\Collaborator;
 use App\Models\CollaboratorType;
 use App\Models\Company;
-use App\Models\CompanyType;
 use App\Models\User;
 use App\Repositories\CompanyTypeRepository;
 use App\Repositories\UserRepository;
@@ -65,27 +64,37 @@ class CompanyControllerTest extends TestCase
 
     public function test_index_should_show_companies_for_logged_user()
     {
-        $this->markTestSkipped();
         $companyTypeId = $this->app->get(CompanyTypeRepository::class)
             ->getRestaurantType()
             ->id;
-        
-        $user = $this->app->get(UserRepository::class)->createOneByFactory();
 
-        $companies2 = $this->createCompany('company 1', $companyTypeId, $user);
-        $companies2 = $this->createCompany('company 2', $companyTypeId, $user);
-        $companies3 = $this->createCompany('company 3', $companyTypeId, $user);
+        $user = $this->app->get(UserRepository::class)->createOneByFactory();
+        $user2 = User::factory()->create();
+
+        $company1 = $this->createCompany('company 1', $companyTypeId, $user);
+        $company2 = $this->createCompany('company 2', $companyTypeId, $user2);
+        $company3 = $this->createCompany('company 3', $companyTypeId, $user);
+        $company4 = $this->createCompany('company 4', $companyTypeId, $user);
+
 
         $urlIndex = route('companies.index');
         $response = $this->actingAs($user)->get($urlIndex);
+
+        $cotent = $response->content();
+        $this->assertStringContainsString($company1->name, $cotent);
+        $this->assertStringContainsString($company3->name, $cotent);
+        $this->assertStringContainsString($company4->name, $cotent);
+        $this->assertStringNotContainsString($company2, $cotent);
     }
 
-    private function createCompany(string $name, int $companyTypeId, User $user)
-    {
-
-        $companies1 = $this->app->get(CreateCompanyService::class)(
-            $name, 
-            $companyTypeId, 
+    private function createCompany(
+        string $name, 
+        int $companyTypeId, 
+        User $user
+    ): Company {
+        return $this->app->get(CreateCompanyService::class)(
+            $name,
+            $companyTypeId,
             $user
         );
     }
